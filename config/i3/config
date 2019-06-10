@@ -1,0 +1,148 @@
+#Gabriel Arruda
+
+set $mod Mod4
+
+
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:monospace 8
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec konsole
+
+bindsym $mod+Shift+Return exec konsole -p tabtitle='fkonsole' 
+for_window [title="fkonsole"] floating enable,resize set 600px 400px,move position center
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+#media
+bindsym $mod+comma exec playerctl previous
+bindsym $mod+period exec playerctl next
+bindsym $mod+space exec playerctl play-pause
+
+for_window [class="^.*"] border pixel 0
+
+default_floating_border none
+default_border none
+
+for_window [class="mpv"] floating enable, move scratchpad, resize set 250px 250px, sticky enable, move position 1650 55
+bindsym $mod+h scratchpad show
+
+
+# the pixles of the gaps
+gaps inner 10
+gaps outer 10
+
+exec_always --no-startup-id compton -r 0 -o 0 -l 0 -t 0
+
+
+# start rofi drun
+bindsym $mod+d exec rofi -show drun
+
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+focus_follows_mouse no
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+# run polybar
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+
+for_window [window_role="pop-up"] floating enable
+
+for_window [window_role="task_dialog"] floating enable
+
+
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper/*
+
+exec_always --no-startup-id start-pulseaudio-x11
+
+exec_always --no-startup-id flashfocus
+
+
+bindsym  $mod + plus exec --no-startup-id bash ~/bin/volume-control.sh up
+bindsym $mod + minus exec --no-startup-id bash ~/bin/volume-control.sh down
+
+bindsym --release $mod+p exec bash ~/bin/pop_mpv.sh
+
+exec_always --no-startup-id dunst
+
+bindsym Print exec bash ~/bin/screenshot.sh
+
+exec_always --no-startup-id ~/.config/i3/alternating_layouts.py
+
+bindsym $mod+m exec rofi -show find -modi find:~/.config/rofi/finder.sh
